@@ -6,19 +6,25 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+const light = new THREE.AmbientLight();
+// const controls = new OrbitControls( camera, renderer.domElement );
+
 const geometry = new THREE.BoxGeometry(2,2,2);
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const cube = new THREE.Mesh( geometry, material );
 
 const lineShape = new THREE.EdgesGeometry(geometry);
-const lineMaterial = new THREE.LineBasicMaterial({color: "white"});
+const lineMaterial = new THREE.LineBasicMaterial({ color: "white" });
 const line = new THREE.LineSegments(lineShape, lineMaterial);
 
-scene.add( cube, line );
+scene.add( cube, line, light );
 
 camera.position.z = 5;
+// controls.update();
+
 function animate() {
     requestAnimationFrame( animate );
+    // controls.update();
     cube.rotateX(.01);
     line.rotateX(.01);
     renderer.render( scene, camera );
